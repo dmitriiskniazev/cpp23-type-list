@@ -1,0 +1,10 @@
+/build/
+/build-*/
+/gcm.cache/
+/.cache/
+compile_commands.json
+*.o
+*.a
+.DS_Store
+.idea/
+.vscode/
