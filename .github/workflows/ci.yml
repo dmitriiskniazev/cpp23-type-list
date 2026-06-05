@@ -64,9 +64,14 @@ jobs:
         run: |
           extra_args=()
           if [[ "${{ runner.os }}" == "Linux" ]]; then
-            extra_args+=(
-              "-DCMAKE_CXX_STDLIB_MODULES_JSON=/usr/lib/llvm-${{ env.LLVM_VERSION }}/share/libc++/v1/libc++.modules.json"
-            )
+            modules_json="$(dpkg -L "libc++-${{ env.LLVM_VERSION }}-dev" | grep 'libc++.modules.json$' | head -1)"
+            if [[ -z "$modules_json" || ! -f "$modules_json" ]]; then
+              echo "libc++.modules.json not found in libc++-${{ env.LLVM_VERSION }}-dev package" >&2
+              dpkg -L "libc++-${{ env.LLVM_VERSION }}-dev" | grep -i module || true
+              exit 1
+            fi
+            echo "Using libc++ modules metadata: $modules_json"
+            extra_args+=("-DCMAKE_CXX_STDLIB_MODULES_JSON=${modules_json}")
           fi
           cmake -B build -G Ninja \
             -DCMAKE_CXX_COMPILER="${{ matrix.compiler }}" \
