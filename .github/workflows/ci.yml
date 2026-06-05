@@ -10,7 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  LLVM_VERSION: '22'
+  LLVM_VERSION: 22.1.7
+  LLVM_INSTALL_DIR: /opt/llvm
 
 jobs:
   format:
@@ -19,10 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install clang-format
-        run: ./scripts/install-llvm-apt.sh
-        env:
-          LLVM_VERSION: ${{ env.LLVM_VERSION }}
+      - name: Install LLVM
+        run: ./scripts/install-llvm-linux-ci.sh
 
       - name: Check formatting
         run: ./scripts/format-check.sh
@@ -39,7 +38,7 @@ jobs:
           - os: macos-latest
             compiler: /opt/homebrew/opt/llvm/bin/clang++
           - os: ubuntu-latest
-            compiler: clang++
+            compiler: /opt/llvm/bin/clang++
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
@@ -48,11 +47,9 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install llvm ninja cmake
 
-      - name: Install dependencies (Ubuntu)
+      - name: Install LLVM (Ubuntu)
         if: runner.os == 'Linux'
-        run: ./scripts/install-llvm-apt.sh
-        env:
-          LLVM_VERSION: ${{ env.LLVM_VERSION }}
+        run: ./scripts/install-llvm-linux-ci.sh
 
       - name: Install CMake (Ubuntu)
         if: runner.os == 'Linux'
@@ -61,22 +58,7 @@ jobs:
           cmakeVersion: 4.3.2
 
       - name: Configure
-        run: |
-          extra_args=()
-          if [[ "${{ runner.os }}" == "Linux" ]]; then
-            modules_json="$(dpkg -L "libc++-${{ env.LLVM_VERSION }}-dev" | grep 'libc++.modules.json$' | head -1)"
-            if [[ -z "$modules_json" || ! -f "$modules_json" ]]; then
-              echo "libc++.modules.json not found in libc++-${{ env.LLVM_VERSION }}-dev package" >&2
-              dpkg -L "libc++-${{ env.LLVM_VERSION }}-dev" | grep -i module || true
-              exit 1
-            fi
-            echo "Using libc++ modules metadata: $modules_json"
-            extra_args+=("-DCMAKE_CXX_STDLIB_MODULES_JSON=${modules_json}")
-          fi
-          cmake -B build -G Ninja \
-            -DCMAKE_CXX_COMPILER="${{ matrix.compiler }}" \
-            "${extra_args[@]}"
-
+        run: cmake -B build -G Ninja -DCMAKE_CXX_COMPILER="${{ matrix.compiler }}"
 
       - name: Build
         run: cmake --build build -j
