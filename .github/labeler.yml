@@ -1,0 +1,32 @@
+modules:
+  - changed-files:
+      - any-glob-to-any-file: modules/**
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file: tests/**
+
+examples:
+  - changed-files:
+      - any-glob-to-any-file: examples/**
+
+docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/**
+          - '**/*.md'
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**
+          - scripts/**
+          - .pre-commit-config.yaml
+
+build:
+  - changed-files:
+      - any-glob-to-any-file:
+          - CMakeLists.txt
+          - build.sh
+          - .clang-format
+          - .clangd

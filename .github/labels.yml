@@ -1,0 +1,35 @@
+- name: bug
+  color: d73a4a
+  description: Incorrect compile-time behavior or build failure
+
+- name: enhancement
+  color: a2eeef
+  description: New operation or API improvement
+
+- name: modules
+  color: 1d76db
+  description: Library module partitions
+
+- name: tests
+  color: 0e8a16
+  description: Test sources
+
+- name: examples
+  color: bfdadc
+  description: Example programs
+
+- name: docs
+  color: 0075ca
+  description: Documentation and README
+
+- name: ci
+  color: fef2c0
+  description: GitHub Actions and automation
+
+- name: build
+  color: d4c5f9
+  description: CMake, tooling, and formatting
+
+- name: stale
+  color: c2e0c6
+  description: Inactive issue or pull request

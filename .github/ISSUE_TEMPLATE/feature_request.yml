@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest a new type-list operation or API improvement
+title: '[Feature]: '
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What compile-time task are you trying to express?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      description: Preferred names (`*_t` / `*_v`), parameter order, and partition name.
+      render: cpp
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: I can open a PR for this
+          required: false
+        - label: This fits the one-partition-per-operation layout
+          required: false

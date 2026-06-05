@@ -1,0 +1,32 @@
+# Install: pip install pre-commit  (or brew install pre-commit)
+# Setup:   pre-commit install
+# Run all: pre-commit run --all-files
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^LICENSE$
+      - id: end-of-file-fixer
+        exclude: ^LICENSE$
+      - id: check-yaml
+      - id: check-added-large-files
+        args: [--maxkb=512]
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v19.1.7
+    hooks:
+      - id: clang-format
+        files: \.(cpp|cppm)$
+
+  - repo: local
+    hooks:
+      - id: check-no-includes
+        name: no #include in modules/tests/examples
+        entry: ./scripts/check-no-includes.sh
+        language: script
+        pass_filenames: false
+        files: \.(cpp|cppm)$

@@ -1,5 +1,7 @@
 # type-list
 
+[![CI](https://github.com/dmitriiskniazev/type-list/actions/workflows/ci.yml/badge.svg)](https://github.com/dmitriiskniazev/type-list/actions/workflows/ci.yml)
+
 Compile-time type lists for C++23 modules: a `nil` / `cons` spine, one module partition per operation, and a single umbrella import.
 
 ## Features
@@ -109,8 +111,11 @@ modules/
     reverse.cppm, flatten.cppm
 tests/                        # one *_test.cpp per operation
 examples/                     # one *_example.cpp per operation
-scripts/                      # format, compile_commands helpers
+scripts/                      # format, ci, compile_commands helpers
+.github/                      # Actions, issue/PR templates, labeler
 docs/API.md                   # detailed API reference
+CONTRIBUTING.md               # contributor workflow
+AGENTS.md                     # guide for AI coding agents
 ```
 
 ## API overview
@@ -132,11 +137,26 @@ Requires [clang-format](https://clang.llvm.org/docs/ClangFormat.html) 18+:
 
 ```bash
 ./scripts/format.sh
+./scripts/format-check.sh   # CI-style dry run
 ```
+
+Optional [pre-commit](https://pre-commit.com/) hooks: `pre-commit install` (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 
 ## IDE support
 
 After `./scripts/gen_compile_commands.sh`, point clangd at the `build/` compilation database. On macOS, `.clangd` selects Homebrew LLVM as the compiler driver for `import std`.
+
+## For AI agents
+
+See [AGENTS.md](AGENTS.md) for build commands, layout conventions, how to add a partition, and common pitfalls.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Full local verification:
+
+```bash
+./scripts/ci.sh
+```
 
 ## License
 

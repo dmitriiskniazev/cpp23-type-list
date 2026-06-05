@@ -1,0 +1,45 @@
+name: Bug report
+description: Incorrect compile-time behavior, build failure, or documentation error
+title: '[Bug]: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Include compiler version and the smallest reproducing type-level expression.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      placeholder: Describe the unexpected behavior or build error.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproducer
+      description: Snippet using `import type_list;` and `static_assert` if possible.
+      render: cpp
+    validations:
+      required: true
+
+  - type: input
+    id: compiler
+    attributes:
+      label: Compiler
+      placeholder: 'clang++ 19.1.0 (Homebrew llvm)'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - macOS (Homebrew LLVM)
+        - Linux (apt.llvm.org)
+        - Other
+    validations:
+      required: true
