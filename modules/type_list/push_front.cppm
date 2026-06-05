@@ -1,8 +1,9 @@
-export module type_list:construct.push_front;
+export module type_list:push_front;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

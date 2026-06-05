@@ -1,8 +1,9 @@
-export module type_list:construct.from_pack;
+export module type_list:from_pack;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

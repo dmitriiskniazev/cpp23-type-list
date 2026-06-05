@@ -1,8 +1,9 @@
-export module type_list:transform.map;
+export module type_list:map;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

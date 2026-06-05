@@ -1,10 +1,10 @@
-export module type_list:core.types;
+export module type_list:types;
 
 import std;
 
 export namespace type_list {
 
-    struct nil {};
+    struct nil;
 
     template <typename head, typename tail>
     struct cons {};

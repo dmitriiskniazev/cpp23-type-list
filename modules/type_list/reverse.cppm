@@ -1,9 +1,10 @@
-export module type_list:combine.reverse;
+export module type_list:reverse;
 
 import std;
 
-import :construct.push_back;
-import :core;
+import :push_back;
+import :types;
+import :type_list;
 
 namespace type_list {
 

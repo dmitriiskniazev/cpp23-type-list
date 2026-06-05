@@ -1,8 +1,9 @@
-export module type_list:traits.empty;
+export module type_list:empty;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 export namespace type_list {
 

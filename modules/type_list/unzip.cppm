@@ -1,8 +1,9 @@
-export module type_list:combine.unzip;
+export module type_list:unzip;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

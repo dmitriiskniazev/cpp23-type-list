@@ -1,6 +1,7 @@
-export module type_list:combine.zip_with;
+export module type_list:zip_with;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

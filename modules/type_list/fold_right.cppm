@@ -1,8 +1,9 @@
-export module type_list:transform.fold_right;
+export module type_list:fold_right;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

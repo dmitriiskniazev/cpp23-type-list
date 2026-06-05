@@ -1,9 +1,10 @@
-export module type_list:access.pop_front;
+export module type_list:pop_front;
 
 import std;
 
-import :core;
-import :traits.non_empty;
+import :types;
+import :type_list;
+import :non_empty;
 
 namespace type_list {
 

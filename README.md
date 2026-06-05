@@ -53,30 +53,40 @@ See `examples/` for per-partition walkthroughs (mirrors `modules/` and `tests/`)
 
 ```
 modules/
-  type_list.cppm              # umbrella: export import of submodules
+  type_list.cppm              # umbrella: export import of all partitions
   type_list/
-    core/
-      core.cppm               # submodule :core
-      types.cppm              #   :core.types — nil, cons
-      type_list.cppm          #   :core.type_list — type_list concept
-    traits/
-      traits.cppm             # submodule :traits
-      empty.cppm              #   :traits.empty
-      non_empty.cppm          #   :traits.non_empty
-      size.cppm               #   :traits.size
-    access/                   # :access.front, back, pop_front, pop_back
-    construct/                # :construct.push_front, push_back, insert, concat, from_pack
-    transform/                # :transform.map, filter, fold_left, fold_right
-    combine/                  # :combine.zip, reverse, flatten
+    types.cppm                # :types — nil, cons
+    type_list.cppm            # :type_list — type_list concept
+    empty.cppm                # :empty
+    non_empty.cppm            # :non_empty
+    size.cppm                 # :size
+    front.cppm                # :front
+    back.cppm                 # :back
+    pop_front.cppm            # :pop_front
+    pop_back.cppm             # :pop_back
+    push_front.cppm           # :push_front
+    push_back.cppm            # :push_back
+    insert.cppm               # :insert
+    concat.cppm               # :concat
+    from_pack.cppm            # :from_pack
+    map.cppm                  # :map
+    filter.cppm               # :filter
+    fold_left.cppm            # :fold_left
+    fold_right.cppm           # :fold_right
+    zip.cppm                  # :zip
+    zip_with.cppm             # :zip_with
+    unzip.cppm                # :unzip
+    reverse.cppm              # :reverse
+    flatten.cppm              # :flatten
 tests/
-  core/                     # mirrors core/
+  core/
   traits/
   access/
   construct/
   transform/
   combine/
 examples/
-  core/                     # mirrors modules/ and tests/
+  core/
   traits/
   access/
   construct/
@@ -84,12 +94,12 @@ examples/
   combine/
 ```
 
-Import the full library with `import type_list`, a submodule, or a leaf partition:
+Import the full library with `import type_list` or a single partition:
 
 ```cpp
-import type_list;                    // everything
-import type_list:traits;            // empty, non_empty, size_v
-import type_list:construct.push_back;   // push_back_t only
+import type_list;              // everything
+import type_list:size;        // size_v only
+import type_list:push_back;    // push_back_t only
 ```
 
 Library and consumer code use **`import std`** (CMake builds libc++'s `std` module automatically). Standard names stay **`std::`-qualified** — e.g. `std::type_identity`, `std::same_as`.

@@ -1,11 +1,12 @@
-export module type_list:construct.insert;
+export module type_list:insert;
 
 import std;
 
-import :core;
-import :construct.push_back;
-import :construct.push_front;
-import :traits.size;
+import :types;
+import :type_list;
+import :push_back;
+import :push_front;
+import :size;
 
 namespace type_list {
 

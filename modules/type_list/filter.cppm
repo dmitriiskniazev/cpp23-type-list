@@ -1,8 +1,9 @@
-export module type_list:transform.filter;
+export module type_list:filter;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

@@ -157,15 +157,16 @@ Library metafunctions use lowercase template parameter names (`list`, `type`, `l
 
 ## Module partitions
 
-Implementation lives under `modules/type_list/` as a **tree**: each algorithm has its own `.cppm`, grouped by submodule folders. Submodule units re-export their leaves; `modules/type_list.cppm` re-exports the submodules.
+Implementation lives under `modules/type_list/` — one `.cppm` per partition. `modules/type_list.cppm` re-exports all of them.
 
-| Submodule | Leaf partitions |
-|-----------|-----------------|
-| `:core` | `:core.types` (`nil`, `cons`), `:core.type_list` (concept) |
-| `:traits` | `:traits.empty`, `:traits.non_empty`, `:traits.size` |
-| `:access` | `:access.front`, `:access.back`, `:access.pop_front`, `:access.pop_back` |
-| `:construct` | `:construct.push_front`, `:construct.push_back`, `:construct.insert`, `:construct.concat`, `:construct.from_pack` |
-| `:transform` | `:transform.map`, `:transform.filter`, `:transform.fold_left`, `:transform.fold_right` |
-| `:combine` | `:combine.zip`, `:combine.zip_with`, `:combine.unzip`, `:combine.reverse`, `:combine.flatten` |
+| Partition | Contents |
+|-----------|----------|
+| `:types` | `nil`, `cons` |
+| `:type_list` | `type_list` concept |
+| `:empty`, `:non_empty`, `:size` | predicates and `size_v` |
+| `:front`, `:back`, `:pop_front`, `:pop_back` | element access |
+| `:push_front`, `:push_back`, `:insert`, `:concat`, `:from_pack` | construction |
+| `:map`, `:filter`, `:fold_left`, `:fold_right` | transforms |
+| `:zip`, `:zip_with`, `:unzip`, `:reverse`, `:flatten` | combine |
 
 Partitions use `import std` and qualify standard types with `std::`.

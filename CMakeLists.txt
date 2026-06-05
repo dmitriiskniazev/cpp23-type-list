@@ -39,35 +39,29 @@ target_sources(type_list
     PUBLIC
         FILE_SET CXX_MODULES FILES
             modules/type_list.cppm
-            modules/type_list/core/types.cppm
-            modules/type_list/core/type_list.cppm
-            modules/type_list/core/core.cppm
-            modules/type_list/traits/empty.cppm
-            modules/type_list/traits/non_empty.cppm
-            modules/type_list/traits/size.cppm
-            modules/type_list/traits/traits.cppm
-            modules/type_list/access/front.cppm
-            modules/type_list/access/back.cppm
-            modules/type_list/access/pop_front.cppm
-            modules/type_list/access/pop_back.cppm
-            modules/type_list/access/access.cppm
-            modules/type_list/construct/push_front.cppm
-            modules/type_list/construct/push_back.cppm
-            modules/type_list/construct/insert.cppm
-            modules/type_list/construct/concat.cppm
-            modules/type_list/construct/from_pack.cppm
-            modules/type_list/construct/construct.cppm
-            modules/type_list/transform/map.cppm
-            modules/type_list/transform/filter.cppm
-            modules/type_list/transform/fold_left.cppm
-            modules/type_list/transform/fold_right.cppm
-            modules/type_list/transform/transform.cppm
-            modules/type_list/combine/zip.cppm
-            modules/type_list/combine/zip_with.cppm
-            modules/type_list/combine/unzip.cppm
-            modules/type_list/combine/reverse.cppm
-            modules/type_list/combine/flatten.cppm
-            modules/type_list/combine/combine.cppm
+            modules/type_list/types.cppm
+            modules/type_list/type_list.cppm
+            modules/type_list/empty.cppm
+            modules/type_list/non_empty.cppm
+            modules/type_list/size.cppm
+            modules/type_list/front.cppm
+            modules/type_list/back.cppm
+            modules/type_list/pop_front.cppm
+            modules/type_list/pop_back.cppm
+            modules/type_list/push_front.cppm
+            modules/type_list/push_back.cppm
+            modules/type_list/insert.cppm
+            modules/type_list/concat.cppm
+            modules/type_list/from_pack.cppm
+            modules/type_list/map.cppm
+            modules/type_list/filter.cppm
+            modules/type_list/fold_left.cppm
+            modules/type_list/fold_right.cppm
+            modules/type_list/zip.cppm
+            modules/type_list/zip_with.cppm
+            modules/type_list/unzip.cppm
+            modules/type_list/reverse.cppm
+            modules/type_list/flatten.cppm
 )
 target_include_directories(type_list PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

@@ -1,9 +1,10 @@
-export module type_list:combine.flatten;
+export module type_list:flatten;
 
 import std;
 
-import :construct.concat;
-import :core;
+import :concat;
+import :types;
+import :type_list;
 
 namespace type_list {
 

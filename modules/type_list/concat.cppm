@@ -1,8 +1,9 @@
-export module type_list:construct.concat;
+export module type_list:concat;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 

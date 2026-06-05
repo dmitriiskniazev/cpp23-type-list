@@ -1,8 +1,8 @@
-export module type_list:core.type_list;
+export module type_list:type_list;
 
 import std;
 
-import :core.types;
+import :types;
 
 namespace type_list {
 

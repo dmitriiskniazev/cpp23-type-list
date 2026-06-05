@@ -1,8 +1,9 @@
-export module type_list:traits.size;
+export module type_list:size;
 
 import std;
 
-import :core;
+import :types;
+import :type_list;
 
 namespace type_list {
 
