@@ -65,7 +65,7 @@ jobs:
 
       - name: Test
         env:
-          LD_LIBRARY_PATH: ${{ env.LLVM_INSTALL_DIR }}/lib:${{ env.LD_LIBRARY_PATH }}
+          LD_LIBRARY_PATH: ${{ env.LLVM_LIB_DIR }}
         if: runner.os == 'Linux'
         run: ctest --test-dir build --output-on-failure
 

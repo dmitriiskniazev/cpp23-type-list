@@ -25,3 +25,15 @@ fi
 echo "LLVM ${llvm_version} installed at ${install_dir}"
 "${install_dir}/bin/clang++" --version
 "${install_dir}/bin/clang-format" --version
+
+libcxx_dir="$(find "${install_dir}" -name 'libc++.so.1' -printf '%h\n' 2>/dev/null | head -1)"
+if [[ -z "$libcxx_dir" ]]; then
+    echo "libc++.so.1 not found under ${install_dir}" >&2
+    find "${install_dir}" -name 'libc++.so*' >&2 || true
+    exit 1
+fi
+
+if [[ -n "${GITHUB_ENV:-}" ]]; then
+    echo "LLVM_LIB_DIR=${libcxx_dir}" >> "$GITHUB_ENV"
+fi
+echo "libc++ runtime directory: ${libcxx_dir}"
