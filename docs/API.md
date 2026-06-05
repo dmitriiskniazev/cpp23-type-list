@@ -1,101 +1,171 @@
 # API reference
 
-All operations are compile-time. Import:
+All operations are compile-time. Import the module and qualify symbols with `type_list::`:
 
 ```cpp
+import std;
 import type_list;
 ```
 
 ## Core types
 
-- **`Nil`** — empty list.
-- **`Cons<Head, Tail>`** — cell; `Tail` must satisfy `type_list`.
-- **`type_list<T>`** — `true` for `Nil` or well-formed `Cons`.
-- **`non_empty_type_list<T>`** — `type_list<T> and not same_as<T, Nil>`.
+- **`type_list::nil`** — empty list.
+- **`type_list::cons<head, tail>`** — cell; `tail` must satisfy `type_list::type_list`.
+- **`type_list::type_list<type>`** — `true` for `nil` or well-formed `cons`.
+- **`type_list::non_empty<type>`** — `type_list::type_list<type> and not std::same_as<type, type_list::nil>`.
+- **`type_list::empty<type>`** — `true` iff `type` is `type_list::nil`.
 
 ## Building lists
 
 ```cpp
-using L = from_pack_t<int, char, void>;  // Cons<int, Cons<char, Cons<void, Nil>>>
-using E = from_pack_t<>;                 // Nil
+struct Fst;
+struct Snd;
+struct Trd;
+
+using List = type_list::from_pack_t<Fst, Snd, Trd>;
+using EmptyList = type_list::from_pack_t<>;  // type_list::nil
 ```
 
 Template alias over a pack:
 
 ```cpp
-template <typename... Ts>
-using list_t = from_pack_t<Ts...>;
+template <typename... Types>
+using ListT = type_list::from_pack_t<Types...>;
 ```
 
 ## Queries
 
 | Alias | Semantics |
 |-------|-----------|
-| `is_nil_v<List>` | `true` iff `List` is `Nil` |
-| `length_v<List>` | element count (`size_t`) |
-| `head_t<List>` | first type (`non_empty_type_list`) |
-| `tail_t<List>` | rest (`non_empty_type_list`) |
+| `type_list::empty<list>` | `true` iff `list` is `type_list::nil` |
+| `type_list::size_v<list>` | element count (`size_t`) |
+| `type_list::front_t<list>` | first type (`non_empty`) |
+| `type_list::back_t<list>` | last type (`non_empty`) |
+| `type_list::pop_front_t<list>` | list without first element (`non_empty`) |
+| `type_list::pop_back_t<list>` | list without last element (`non_empty`) |
 
-## Single-element insert
+## Single-type insert
 
-| Alias | Order |
-|-------|--------|
-| `prepend_t<Elem, List>` | front |
-| `append_t<List, Elem>` | back |
+| Alias | Semantics |
+|-------|-----------|
+| `type_list::push_front_t<type, list>` | insert at front |
+| `type_list::push_back_t<list, type>` | insert at back |
+| `type_list::insert_t<list, index, type>` | insert at compile-time index |
 
 ## List algebra
 
 | Alias | Semantics |
 |-------|-----------|
-| `concat_t<Lhs, Rhs>` | append all of `Rhs` after `Lhs` |
-| `flatten_t<List>` | list of lists → one list; non-list heads stay as cells |
+| `type_list::concat_t<left, right>` | push all of `right` after `left` |
+| `type_list::flatten_t<list>` | list of lists → one list; non-list heads stay as cells |
 
 ## Higher-order
 
-**Map** — unary type alias template `Op`:
+**map** — unary metafunction `unary_op`:
 
 ```cpp
-template <typename T>
-using Op = T*;
+template <typename Type>
+struct Boxed;
 
-using Out = map_t<Op, from_pack_t<int, char>>;
+template <typename Type>
+using Box = Boxed<Type>;
+
+using List = type_list::from_pack_t<Fst, Snd, Trd>;
+using MappedList = type_list::map_t<Box, List>;
+using ExpectedList = type_list::from_pack_t<Boxed<Fst>, Boxed<Snd>, Boxed<Trd>>;
 ```
 
-**Filter** — predicate class template with `static constexpr bool value` (via `integral_constant`):
+**filter** — unary metafunction `unary_op` with `static constexpr bool value` (via `std::integral_constant`):
 
 ```cpp
-template <typename T>
-struct is_int : integral_constant<bool, same_as<T, int>> {};
+template <typename Type>
+struct Keep : std::integral_constant<bool, std::same_as<Type, Fst> or std::same_as<Type, Snd>> {};
 
-using Out = filter_t<is_int, from_pack_t<int, char, int>>;
+using List = type_list::from_pack_t<Fst, Trd, Snd>;
+using FilteredList = type_list::filter_t<Keep, List>;
+using ExpectedList = type_list::from_pack_t<Fst, Snd>;
 ```
 
-**Fold** — binary metafunction class `F` with nested `type`:
+**Fold** — binary metafunction `binary_op` inheriting `std::type_identity`:
 
 ```cpp
-template <typename Acc, typename Elem>
-struct append_type {
-    using type = concat_t<Acc, from_pack_t<Elem>>;
-};
+template <typename Accumulator, typename Elem>
+struct PushBackOne : std::type_identity<type_list::push_back_t<Accumulator, Elem>> {};
 
-using Out = fold_left_t<Nil, append_type, from_pack_t<int, char>>;
+using EmptyList = type_list::nil;
+using SourceList = type_list::from_pack_t<Fst, Snd>;
+using FoldedList = type_list::fold_left_t<EmptyList, PushBackOne, SourceList>;
 ```
 
-`fold_right_t` folds from the right with the same `F` shape.
+`type_list::fold_right_t` folds from the right with the same `binary_op` shape.
 
-**Zip** — pairs heads with `std::pair`; stops at the shorter list:
+**zip** — pairs heads with `std::pair`; stops at the shorter list:
 
 ```cpp
-using Z = zip_t<from_pack_t<int, char>, from_pack_t<float, double, void>>;
-// Cons<pair<int,float>, Cons<pair<char,double>, Nil>>
+using FirstList = type_list::from_pack_t<Fst, Snd>;
+using SecondList = type_list::from_pack_t<Alpha, Beta>;
+using ZippedList = type_list::zip_t<FirstList, SecondList>;
+// type_list::cons<std::pair<Fst, Alpha>, type_list::cons<std::pair<Snd, Beta>, type_list::nil>>
 ```
 
-**Reverse**
+**zip_with** — same rule as `zip` (shorter list wins); element type from `binary_op` (`typename binary_op<Left, Right>::type` via `std::type_identity`):
 
 ```cpp
-using R = reverse_t<from_pack_t<int, char, void>>;
+template <typename Left, typename Right>
+struct MakePair : std::type_identity<std::pair<Left, Right>> {};
+
+using FirstList = type_list::from_pack_t<Fst, Snd>;
+using SecondList = type_list::from_pack_t<Alpha, Beta>;
+using ZippedList = type_list::zip_with_t<MakePair, FirstList, SecondList>;
 ```
+
+**unzip** — split a list of `std::pair` into a `std::pair` of type lists:
+
+```cpp
+using FirstList = type_list::from_pack_t<Fst, Snd>;
+using SecondList = type_list::from_pack_t<Alpha, Beta>;
+using ZippedList = type_list::zip_t<FirstList, SecondList>;
+
+using Unzipped = type_list::unzip_t<ZippedList>;
+using UnzippedFirst = Unzipped::first_type;
+using UnzippedSecond = Unzipped::second_type;
+```
+
+**reverse**
+
+```cpp
+using List = type_list::from_pack_t<Fst, Snd, Trd>;
+using ReversedList = type_list::reverse_t<List>;
+```
+
+## Template parameter conventions
+
+Library metafunctions use lowercase template parameter names (`list`, `type`, `left`, `right`, …). In `examples/` and `tests/`, user-defined types and template parameters use **PascalCase** (`List`, `Type`, `Boxed`, `MakePair`, …).
+
+| Parameter | Role |
+|-----------|------|
+| `list`, `left`, `right` | type-list operands |
+| `head`, `tail` | `cons` cell (type template parameters on `cons`) |
+| `front_type`, `tail` | destructure a `cons` list in algorithms |
+| `type` | single type to insert (`push_front`, `push_back`, `insert`) |
+| `index` | compile-time position for `insert_t` |
+| `init` | fold initial value |
+| `accumulator`, `elem` | fold step arguments (`binary_op` inherits `std::type_identity`) |
+| `unary_op` | `template <typename> typename` transform for `map`; trait with `::value` for `filter` |
+| `binary_op` | `template <typename, typename> typename` step for folds and `zip_with` (inherits `std::type_identity`; use `Left`/`Right` or `Accumulator`/`Elem` in consumer code) |
+| `nested` | nested list head in `flatten` |
 
 ## Module partitions
 
-Implementation lives under `modules/type_list/*.cppm`, aggregated by `modules/type_list.cppm`. Only `:std` uses `#include`; other partitions `import` siblings.
+Implementation lives under `modules/type_list/` as a **tree**: each algorithm has its own `.cppm`, grouped by submodule folders. Submodule units re-export their leaves; `modules/type_list.cppm` re-exports the submodules.
+
+| Submodule | Leaf partitions |
+|-----------|-----------------|
+| `:core` | `:core.types` (`nil`, `cons`), `:core.type_list` (concept) |
+| `:traits` | `:traits.empty`, `:traits.non_empty`, `:traits.size` |
+| `:access` | `:access.front`, `:access.back`, `:access.pop_front`, `:access.pop_back` |
+| `:construct` | `:construct.push_front`, `:construct.push_back`, `:construct.insert`, `:construct.concat`, `:construct.from_pack` |
+| `:transform` | `:transform.map`, `:transform.filter`, `:transform.fold_left`, `:transform.fold_right` |
+| `:combine` | `:combine.zip`, `:combine.zip_with`, `:combine.unzip`, `:combine.reverse`, `:combine.flatten` |
+
+Partitions use `import std` and qualify standard types with `std::`.

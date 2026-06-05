@@ -1,0 +1,22 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Examples: readable single-line asserts, attached braces (unlike modules/).
+ColumnLimit: 100
+IndentWidth: 4
+ContinuationIndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: false
+  AfterStruct: false
+  SplitEmptyRecord: false
+AllowShortBlocksOnASingleLine: Empty
+
+AlignAfterOpenBracket: DontAlign
+BinPackArguments: true
+SortIncludes: Never
+IncludeBlocks: Preserve

@@ -1,0 +1,68 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# 4 spaces, 61 columns. Approximates ">= 3 template items break, <= 2 on one line"
+# (clang-format 22 has no arg-count rule): short 2-item lists fit; 3+ wrap with `>`
+# alone (AlwaysOnePerLine). export module lines (~32 cols) stay intact.
+IndentWidth: 4
+ContinuationIndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+
+MaxEmptyLinesToKeep: 2
+SeparateDefinitionBlocks: Always
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: false
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  SplitEmptyRecord: false
+  SplitEmptyFunction: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: None
+AllowShortCaseLabelsOnASingleLine: false
+
+BinPackArguments: false
+BinPackParameters: AlwaysOnePerLine
+BreakBeforeTemplateCloser: true
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeTernaryOperators: true
+
+AlignAfterOpenBracket: AlwaysBreak
+AlignOperands: false
+
+FixNamespaceComments: false
+NamespaceIndentation: All
+ReflowComments: true
+SpacesBeforeTrailingComments: 2
+
+SpaceBeforeParens: ControlStatements
+SpaceAfterTemplateKeyword: true
+SpacesInAngles: Never
+PointerAlignment: Left
+
+SortIncludes: Never
+IncludeBlocks: Preserve
+
+IndentRequiresClause: true
+AlwaysBreakTemplateDeclarations: Yes
+BreakTemplateDeclarations: Yes
+BreakInheritanceList: BeforeColon
+BreakConstructorInitializers: BeforeColon

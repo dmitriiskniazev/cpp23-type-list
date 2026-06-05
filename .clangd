@@ -1,0 +1,6 @@
+CompileFlags:
+  CompilationDatabase: build
+
+QueryDriver:
+  - /opt/homebrew/opt/llvm/bin/clang++
+  - /opt/homebrew/Cellar/llvm/*/bin/clang++
