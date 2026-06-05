@@ -2,8 +2,7 @@ export module type_list:combine.zip_with;
 
 import :core;
 
-namespace type_list
-{
+namespace type_list {
 
     template <template <typename, typename> typename binary_op, type_list left, type_list right>
     struct zip_with;

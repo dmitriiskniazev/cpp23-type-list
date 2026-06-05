@@ -4,22 +4,16 @@ import std;
 
 import :core;
 
-namespace type_list
-{
+namespace type_list {
 
     template <type_list list>
     struct size;
 
     template <>
-    struct size<nil>
-        : std::integral_constant<std::size_t, 0> {};
+    struct size<nil> : std::integral_constant<std::size_t, 0> {};
 
     template <typename head_type, type_list tail>
-    struct size<cons<head_type, tail>>
-        : std::integral_constant<
-              std::size_t,
-              1 + size<tail>::value
-          > {};
+    struct size<cons<head_type, tail>> : std::integral_constant<std::size_t, 1 + size<tail>::value> {};
 
     export {
         template <type_list list>

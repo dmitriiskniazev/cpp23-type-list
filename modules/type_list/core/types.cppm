@@ -2,8 +2,7 @@ export module type_list:core.types;
 
 import std;
 
-export namespace type_list
-{
+export namespace type_list {
 
     struct nil {};
 

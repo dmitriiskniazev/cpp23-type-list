@@ -4,8 +4,7 @@ import std;
 
 import :core.types;
 
-namespace type_list
-{
+namespace type_list {
 
     template <typename type>
     struct is_type_list : std::false_type {};
@@ -15,8 +14,7 @@ namespace type_list
 
     template <typename head, typename tail>
         requires is_type_list<tail>::value
-    struct is_type_list<cons<head, tail>> : std::true_type {
-    };
+    struct is_type_list<cons<head, tail>> : std::true_type {};
 
     export {
         template <typename type>

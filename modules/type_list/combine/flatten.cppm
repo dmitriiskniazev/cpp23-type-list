@@ -5,8 +5,7 @@ import std;
 import :construct.concat;
 import :core;
 
-namespace type_list
-{
+namespace type_list {
 
     template <type_list list>
     struct flatten;

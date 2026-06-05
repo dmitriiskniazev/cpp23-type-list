@@ -4,8 +4,7 @@ import std;
 
 import :core;
 
-namespace type_list
-{
+namespace type_list {
 
     template <type_list left, type_list right>
     struct zip;
@@ -19,20 +18,9 @@ namespace type_list
     template <type_list left>
     struct zip<left, nil> : std::type_identity<nil> {};
 
-    template <
-        typename left_head,
-        type_list left_tail,
-        typename right_head,
-        type_list right_tail
-    >
-    struct zip<
-        cons<left_head, left_tail>,
-        cons<right_head, right_tail>
-    >
-        : std::type_identity<cons<
-              std::pair<left_head, right_head>,
-              typename zip<left_tail, right_tail>::type
-          >> {};
+    template <typename left_head, type_list left_tail, typename right_head, type_list right_tail>
+    struct zip<cons<left_head, left_tail>, cons<right_head, right_tail>>
+        : std::type_identity<cons<std::pair<left_head, right_head>, typename zip<left_tail, right_tail>::type>> {};
 
     export {
         template <type_list left, type_list right>

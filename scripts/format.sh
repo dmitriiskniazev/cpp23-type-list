@@ -11,7 +11,7 @@ fi
 
 format_dir() {
     local dir="$1"
-    find "$dir" -name '*.cpp' -print0 | xargs -0 clang-format -i
+    find "$dir" \( -name '*.cpp' -o -name '*.cppm' \) -print0 | xargs -0 clang-format -i
 }
 
 format_dir modules

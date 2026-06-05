@@ -12,6 +12,7 @@ UseTab: Never
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: false
+  AfterNamespace: false
   AfterStruct: false
   SplitEmptyRecord: false
 AllowShortBlocksOnASingleLine: Empty

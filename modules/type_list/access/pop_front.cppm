@@ -5,8 +5,7 @@ import std;
 import :core;
 import :traits.non_empty;
 
-namespace type_list
-{
+namespace type_list {
 
     template <non_empty list>
     struct pop_front;
