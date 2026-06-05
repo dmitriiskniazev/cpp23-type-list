@@ -133,7 +133,7 @@ See [docs/API.md](docs/API.md) for signatures, partition map, and examples.
 
 ## Formatting
 
-Requires [clang-format](https://clang.llvm.org/docs/ClangFormat.html) 18+:
+Requires [clang-format](https://clang.llvm.org/docs/ClangFormat.html) 22+ (same LLVM major as CI):
 
 ```bash
 ./scripts/format.sh

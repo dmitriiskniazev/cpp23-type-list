@@ -6,7 +6,7 @@ Thanks for improving **type-list**. This library is compile-time only: correctne
 
 - **Clang 19+** with libc++ `import std` (Homebrew LLVM on macOS; [apt.llvm.org](https://apt.llvm.org/) on Linux)
 - **CMake 3.28+** and **Ninja**
-- **clang-format 18+**
+- **clang-format 22+** (match Homebrew LLVM / apt.llvm.org LLVM 22 used in CI)
 
 Apple Clang and GCC are not supported.
 

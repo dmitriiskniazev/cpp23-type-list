@@ -12,6 +12,8 @@ build_dir="${BUILD_DIR:-build}"
 if [[ -z "${CMAKE_CXX_COMPILER:-}" ]]; then
     if [[ -x /opt/homebrew/opt/llvm/bin/clang++ ]]; then
         export CMAKE_CXX_COMPILER=/opt/homebrew/opt/llvm/bin/clang++
+    elif command -v clang++-22 >/dev/null 2>&1; then
+        export CMAKE_CXX_COMPILER=clang++-22
     elif command -v clang++-19 >/dev/null 2>&1; then
         export CMAKE_CXX_COMPILER=clang++-19
     elif command -v clang++ >/dev/null 2>&1; then
