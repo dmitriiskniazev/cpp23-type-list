@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: API reference
-    url: https://github.com/dmitriiskniazev/type-list/blob/master/docs/API.md
+    url: https://github.com/dmitriiskniazev/type-list/blob/master/libs/type-list/docs/API.md
     about: Compile-time type list operations and partition map

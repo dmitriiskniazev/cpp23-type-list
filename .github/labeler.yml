@@ -1,19 +1,19 @@
 modules:
   - changed-files:
-      - any-glob-to-any-file: modules/**
+      - any-glob-to-any-file: libs/**/modules/**
 
 tests:
   - changed-files:
-      - any-glob-to-any-file: tests/**
+      - any-glob-to-any-file: libs/**/tests/**
 
 examples:
   - changed-files:
-      - any-glob-to-any-file: examples/**
+      - any-glob-to-any-file: libs/**/examples/**
 
 docs:
   - changed-files:
       - any-glob-to-any-file:
-          - docs/**
+          - libs/**/docs/**
           - '**/*.md'
 
 ci:
@@ -21,12 +21,18 @@ ci:
       - any-glob-to-any-file:
           - .github/**
           - scripts/**
+          - cmake/**
           - .pre-commit-config.yaml
 
 build:
   - changed-files:
       - any-glob-to-any-file:
           - CMakeLists.txt
-          - build.sh
+          - libs/**/CMakeLists.txt
+          - cmake/**
           - .clang-format
           - .clangd
+
+type-list:
+  - changed-files:
+      - any-glob-to-any-file: libs/type-list/**

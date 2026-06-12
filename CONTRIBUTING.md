@@ -1,26 +1,25 @@
 # Contributing
 
-Thanks for improving **type-list**. This library is compile-time only: correctness is enforced with `static_assert` and type aliases.
+Thanks for improving **cpp**. This monorepo holds C++23 projects; the first library is **type-list** under `libs/type-list/` (compile-time only: `static_assert` and type aliases).
 
 ## Prerequisites
 
-- **Clang 19+** with libc++ `import std` (Homebrew LLVM on macOS; [apt.llvm.org](https://apt.llvm.org/) on Linux)
-- **CMake 4.3+** (or match the `CMAKE_EXPERIMENTAL_CXX_IMPORT_STD` UUID in `CMakeLists.txt`) and **Ninja**
-- **clang-format 22+** (match Homebrew LLVM / apt.llvm.org LLVM 22 used in CI)
+- **Clang 19+** with libc++ `import std` (Homebrew LLVM on macOS; official LLVM tarball on Linux CI)
+- **CMake 4.3+** and **Ninja**
+- **clang-format 22+** (match CI)
 
 Apple Clang and GCC are not supported.
 
 ## Local workflow
 
 ```bash
-# One-shot checks (format, no #include, configure, build, test)
 ./scripts/ci.sh
 
 # Or step by step:
 cmake -B build -G Ninja
 cmake --build build
 ctest --test-dir build
-./scripts/format.sh          # after editing C++ sources
+./scripts/format.sh          # after editing libs/**/*.cpp / *.cppm
 ```
 
 Optional git hooks:
@@ -33,30 +32,34 @@ pre-commit run --all-files
 
 ## Repository automation
 
-After pushing, GitHub Actions run build/test on macOS and Ubuntu, check formatting, and sync labels. See `.github/workflows/`.
+GitHub Actions run format check, build/test on macOS and Ubuntu, and label PRs. See `.github/workflows/`.
 
 Recommended branch protection on `master`:
 
 - Require status checks: **Format**, **Build (macos-latest)**, **Build (ubuntu-latest)**
-- Require pull request reviews (optional for solo maintenance)
 
-## Adding an operation
+## Adding a type-list operation
 
 Follow [AGENTS.md](AGENTS.md). In short:
 
-1. Add `modules/type_list/<op>.cppm`
-2. `export import :<op>;` in `modules/type_list.cppm`
-3. Register in `CMakeLists.txt` (`TYPE_LIST_TESTS`, `TYPE_LIST_EXAMPLES`)
-4. Update [docs/API.md](docs/API.md)
+1. Add `libs/type-list/modules/type_list/<op>.cppm`
+2. `export import :<op>;` in `libs/type-list/modules/type_list.cppm`
+3. Register in `libs/type-list/CMakeLists.txt`
+4. Update [libs/type-list/docs/API.md](libs/type-list/docs/API.md)
 5. Run `./scripts/ci.sh`
+
+## Adding another library
+
+1. Create `libs/<name>/` with its own `CMakeLists.txt`
+2. Add `add_subdirectory(libs/<name>)` to root `CMakeLists.txt`
+3. Reuse `cmake/CppModules.cmake` — do not duplicate toolchain setup
 
 ## Pull requests
 
-- Keep diffs focused; one partition per feature when possible
-- Match naming in [README.md](README.md) (`*_t`, lowercase concepts, PascalCase test markers)
-- Do not use `#include` in `modules/`, `tests/`, or `examples/`
-- CI must pass on macOS and Ubuntu (see [.github/workflows/ci.yml](.github/workflows/ci.yml))
+- Keep diffs focused
+- No `#include` in module trees under `libs/`
+- CI must pass on macOS and Ubuntu
 
 ## Questions
 
-Open a [discussion](https://github.com/dmitriiskniazev/type-list/discussions) or an issue using the templates in `.github/ISSUE_TEMPLATE/`.
+Open a [discussion](https://github.com/dmitriiskniazev/type-list/discussions) or an issue using `.github/ISSUE_TEMPLATE/`.

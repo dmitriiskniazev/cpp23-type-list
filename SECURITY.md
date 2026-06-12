@@ -1,6 +1,6 @@
 # Security policy
 
-**type-list** is a header-style C++23 module library evaluated entirely at compile time. It has no runtime network surface, secrets, or persistence.
+**cpp** is a C++23 monorepo (libraries, educational code). The **type-list** library is evaluated entirely at compile time. It has no runtime network surface, secrets, or persistence.
 
 ## Reporting
 
