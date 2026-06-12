@@ -6,7 +6,7 @@
 
 If you believe you have found a security issue (for example, a malicious change in this repository or its CI configuration), please report it privately:
 
-- Open a [GitHub security advisory](https://github.com/dmitriiskniazev/type-list/security/advisories/new), or
+- Open a [GitHub security advisory](https://github.com/dmitriiskniazev/cpp/security/advisories/new), or
 - Email the maintainer listed in [LICENSE](LICENSE).
 
 Public issues are fine for general bugs that are not security-sensitive.

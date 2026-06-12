@@ -1,6 +1,6 @@
 # cpp
 
-[![CI](https://github.com/dmitriiskniazev/type-list/actions/workflows/ci.yml/badge.svg)](https://github.com/dmitriiskniazev/type-list/actions/workflows/ci.yml)
+[![CI](https://github.com/dmitriiskniazev/cpp/actions/workflows/ci.yml/badge.svg)](https://github.com/dmitriiskniazev/cpp/actions/workflows/ci.yml)
 
 Monorepo for C++23 projects: libraries, educational exercises, lecture code, and standard-library-style implementations.
 

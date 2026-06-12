@@ -62,4 +62,4 @@ Follow [AGENTS.md](AGENTS.md). In short:
 
 ## Questions
 
-Open a [discussion](https://github.com/dmitriiskniazev/type-list/discussions) or an issue using `.github/ISSUE_TEMPLATE/`.
+Open a [discussion](https://github.com/dmitriiskniazev/cpp/discussions) or an issue using `.github/ISSUE_TEMPLATE/`.
