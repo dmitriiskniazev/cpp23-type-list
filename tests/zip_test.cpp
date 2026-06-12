@@ -4,20 +4,20 @@ import type_list;
 
 struct Fst;
 struct Snd;
-struct Alpha;
-struct Beta;
-struct Gamma;
+struct Trd;
+struct Frh;
+struct Fth;
 
 using EmptyList = type_list::nil;
 using FirstList = type_list::from_pack_t<Fst, Snd>;
-using SecondList = type_list::from_pack_t<Alpha, Beta>;
+using SecondList = type_list::from_pack_t<Trd, Frh>;
 using ShortFirst = type_list::from_pack_t<Fst>;
-using LongSecond = type_list::from_pack_t<Alpha, Beta, Gamma>;
+using LongSecond = type_list::from_pack_t<Trd, Frh, Fth>;
 
-using PairFstAlpha = std::pair<Fst, Alpha>;
-using PairSndBeta = std::pair<Snd, Beta>;
-using ExpectedList = type_list::from_pack_t<PairFstAlpha, PairSndBeta>;
-using ShortExpected = type_list::from_pack_t<PairFstAlpha>;
+using PairFstTrd = std::pair<Fst, Trd>;
+using PairSndFrh = std::pair<Snd, Frh>;
+using ExpectedList = type_list::from_pack_t<PairFstTrd, PairSndFrh>;
+using ShortExpected = type_list::from_pack_t<PairFstTrd>;
 
 using EmptyZip = type_list::zip_t<EmptyList, EmptyList>;
 using ZippedList = type_list::zip_t<FirstList, SecondList>;

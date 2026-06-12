@@ -4,15 +4,15 @@ import type_list;
 
 struct Fst;
 struct Snd;
-struct Alpha;
-struct Beta;
+struct Trd;
+struct Frh;
 
 using FirstList = type_list::from_pack_t<Fst, Snd>;
-using SecondList = type_list::from_pack_t<Alpha, Beta>;
+using SecondList = type_list::from_pack_t<Trd, Frh>;
 
-using PairFstAlpha = std::pair<Fst, Alpha>;
-using PairSndBeta = std::pair<Snd, Beta>;
-using PairsList = type_list::from_pack_t<PairFstAlpha, PairSndBeta>;
+using PairFstTrd = std::pair<Fst, Trd>;
+using PairSndFrh = std::pair<Snd, Frh>;
+using PairsList = type_list::from_pack_t<PairFstTrd, PairSndFrh>;
 
 using Unzipped = type_list::unzip_t<PairsList>;
 using UnzippedFirst = Unzipped::first_type;

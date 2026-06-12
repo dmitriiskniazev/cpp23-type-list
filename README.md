@@ -37,14 +37,14 @@ Generate `compile_commands.json` for clangd:
 import std;
 import type_list;
 
-struct A;
-struct B;
-struct C;
+struct Fst;
+struct Snd;
+struct Trd;
 
-using List = type_list::from_pack_t<A, B, C>;
+using List = type_list::from_pack_t<Fst, Snd, Trd>;
 using Reversed = type_list::reverse_t<List>;
 static_assert(type_list::size_v<Reversed> == 3);
-static_assert(std::same_as<type_list::front_t<Reversed>, C>);
+static_assert(std::same_as<type_list::front_t<Reversed>, Trd>);
 ```
 
 Run the matching example:
@@ -80,7 +80,7 @@ Partition names match the stem of the module file under `modules/type_list/` (e.
 
 ### Tests and examples
 
-Marker types and functors use **PascalCase** (`Fst`, `List`, `Boxed`, `MakePair`) so they read clearly next to lowercase library names.
+Marker types use ordinal **PascalCase** abbreviations (`Fst`, `Snd`, `Trd`, `Frh`, …); functors use descriptive names (`Boxed`, `MakePair`).
 
 ### Files and build targets
 

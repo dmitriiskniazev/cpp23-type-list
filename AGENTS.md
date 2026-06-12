@@ -66,7 +66,7 @@ Optional git hooks: `pre-commit install` (see `.pre-commit-config.yaml`).
 
 ### Tests and examples
 
-- Marker types and functors: **PascalCase** (`Fst`, `Boxed`, `MakePair`).
+- Marker types: ordinal **PascalCase** (`Fst`, `Snd`, `Trd`, `Frh`, …); functors: descriptive names (`Boxed`, `MakePair`).
 - Files: `tests/<op>_test.cpp`, `examples/<op>_example.cpp`.
 - CMake targets: `type_list_<op>_test`, `type_list_<op>_example` (stem includes `_test` / `_example` suffix).
 

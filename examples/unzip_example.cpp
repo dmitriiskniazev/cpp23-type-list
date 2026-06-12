@@ -4,11 +4,11 @@ import type_list;
 
 struct Fst;
 struct Snd;
-struct Alpha;
-struct Beta;
+struct Trd;
+struct Frh;
 
 using FirstList = type_list::from_pack_t<Fst, Snd>;
-using SecondList = type_list::from_pack_t<Alpha, Beta>;
+using SecondList = type_list::from_pack_t<Trd, Frh>;
 using ZippedList = type_list::zip_t<FirstList, SecondList>;
 
 using Unzipped = type_list::unzip_t<ZippedList>;
